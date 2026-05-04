@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="RescueGrid - Emergency healthcare coordination platform connecting hospitals, ambulances, and patients for faster emergency response." />
+    <meta name="keywords" content="emergency, hospital, ambulance, healthcare, patient tracking, medical coordination" />
+    <meta name="author" content="RescueGrid" />
+    <meta property="og:title" content="RescueGrid - Emergency Hospital & Ambulance Network" />
+    <meta property="og:description" content="Track hospital bed, ICU, oxygen, and blood availability while ambulance crews prepare treatment before arrival." />
+    <meta property="og:image" content="rescuegrid-logo.png" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="rescuegrid-logo.png" type="image/png" />
+    <title>RescueGrid Emergency Hospital & Ambulance Network</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="RescueGrid Home">
+        <img class="brand-logo" src="rescuegrid-logo.png" alt="RescueGrid logo" />
+        <span>RescueGrid</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" id="siteNav" role="navigation" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#tracking">Live Tracking</a>
+        <a href="#hospitals">Hospitals</a>
+        <a href="#patient-app">Patient App</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#vision">Vision</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero section-gradient">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Emergency readiness for every patient</p>
+          <h1>RescueGrid connects hospitals, ambulances, and patients instantly.</h1>
+          <p class="hero-copy">Track hospital bed, ICU, oxygen, and blood availability while ambulance crews prepare treatment before arrival.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#features">See Features</a>
+            <a class="btn btn-secondary" href="#contact">Talk to Investors</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="card-header">Emergency status</div>
+          <div class="resource-actions">
+            <button class="btn btn-secondary resource-btn active" data-resource="beds">Beds</button>
+            <button class="btn btn-secondary resource-btn" data-resource="icu">ICU</button>
+            <button class="btn btn-secondary resource-btn" data-resource="oxygen">Oxygen</button>
+            <button class="btn btn-secondary resource-btn" data-resource="blood">Blood</button>
+          </div>
+          <div id="resourceDetails" class="resource-details">
+            <div class="resource-summary">Beds available across nearby hospitals</div>
+            <div class="resource-list">
+              <div>City General Hospital — 12 beds</div>
+              <div>Rescue Health Center — 8 beds</div>
+              <div>Sunrise Emergency Care — 15 beds</div>
+            </div>
+          </div>
+          <div class="tracking-panel">
+            <h3>Ambulance live tracking</h3>
+            <p>Realtime route updates show ambulance progress and patient ETA to the hospital.</p>
+            <div class="map-placeholder" id="trackingMap">Ambulance route preview</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section-light">
+      <div class="container">
+        <div class="section-title">
+          <span>Platform capabilities</span>
+          <h2>All the emergency insights hospitals and patients need.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Resource dashboard</h3>
+            <p>Monitor bed, ICU, oxygen, blood, and doctor availability for every partner hospital in a single view.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Live ambulance tracking</h3>
+            <p>Track ambulance position and ETA so hospitals can prepare treatment before the patient arrives.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Emergency alert flow</h3>
+            <p>Patients send accurate emergency categories like heart attack, stroke, accident, or labor pain to nearby hospitals instantly.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Care coordination</h3>
+            <p>Seamless communication between ambulance crews, emergency teams, and hospital staff reduces delay and saves lives.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tracking" class="section-dark">
+      <div class="container tracking-grid">
+        <div>
+          <span>How it works</span>
+          <h2>Emergency response built for speed and transparency.</h2>
+          <ol class="process-list">
+            <li><strong>Patient alerts:</strong> User submits emergency type and current location.</li>
+            <li><strong>Hospital prep:</strong> Nearby hospitals receive the alert with resource needs and ETA.</li>
+            <li><strong>Ambulance route:</strong> Live GPS tracking shows ambulance progress to both patient and hospital.</li>
+            <li><strong>Ready care:</strong> Medical teams prepare ICU, blood, oxygen, and specialists before arrival.</li>
+          </ol>
+        </div>
+        <div class="tracking-demo">
+          <h3>Demo: ambulance route updates</h3>
+          <div id="mapCard" class="map-card">
+            <div class="map-status">Ambulance ETA: <span id="eta">8 min</span></div>
+            <div id="trackingMessage" class="tracking-message">Ambulance 4.2 km from patient pickup point.</div>
+            <div class="map-route">
+              <div class="route-point active">Patient</div>
+              <div class="route-line"></div>
+              <div class="route-point">Ambulance</div>
+              <div class="route-line"></div>
+              <div class="route-point">Hospital</div>
+            </div>
+            <button id="simulateBtn" class="btn btn-tertiary">Update live tracking</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hospitals" class="section-light">
+      <div class="container">
+        <div class="section-title">
+          <span>Hospital network</span>
+          <h2>Real-time resource availability across partner hospitals.</h2>
+        </div>
+        <div class="hospital-table-container">
+          <table class="hospital-table">
+            <thead>
+              <tr>
+                <th>Hospital Name</th>
+                <th>Beds Available</th>
+                <th>ICU Slots</th>
+                <th>Oxygen Cylinders</th>
+                <th>Blood Units</th>
+                <th>Doctors On Call</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>City General Hospital</td>
+                <td>12</td>
+                <td>4</td>
+                <td>18</td>
+                <td>O+ (10), A+ (8)</td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <td>Rescue Health Center</td>
+                <td>8</td>
+                <td>2</td>
+                <td>12</td>
+                <td>B+ (7), AB+ (5)</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>Sunrise Emergency Care</td>
+                <td>15</td>
+                <td>5</td>
+                <td>20</td>
+                <td>A- (6), O- (4)</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td>Metro Medical Institute</td>
+                <td>10</td>
+                <td>3</td>
+                <td>15</td>
+                <td>O+ (9), B- (3)</td>
+                <td>5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="patient-app" class="section-light">
+      <div class="container">
+        <div class="section-title">
+          <span>Patient experience</span>
+          <h2>Find hospitals, check availability, and send emergency alerts instantly.</h2>
+        </div>
+        <div class="patient-app-demo">
+          <div class="app-mockup">
+            <div class="app-header">
+              <div class="location-bar">
+                <span class="location-icon">📍</span>
+                <span>Current Location: Bengaluru, Karnataka</span>
+              </div>
+              <div class="search-bar">
+                <input type="text" placeholder="Search hospitals..." id="hospitalSearch" />
+                <button class="mic-btn" id="micBtn">🎤</button>
+              </div>
+            </div>
+            <div class="emergency-selector">
+              <button id="patientAlertBtn" class="btn btn-alert">🚨 Send Emergency Alert</button>
+              <div id="patientEmergencyDropdown" class="emergency-dropdown" style="display: none;">
+                <label for="patientEmergencyType">Select emergency type:</label>
+                <select id="patientEmergencyType">
+                  <option value="">Choose emergency...</option>
+                  <option value="Heart Attack">Heart Attack</option>
+                  <option value="Stroke">Stroke</option>
+                  <option value="Accident">Accident</option>
+                  <option value="Labor Pain">Labor Pain</option>
+                  <option value="High Fever">High Fever</option>
+                </select>
+              </div>
+            </div>
+            <div class="hospital-list" id="hospitalList">
+              <div class="hospital-item">
+                <div class="hospital-info">
+                  <h4>City General Hospital</h4>
+                  <p>2.3 km away • Emergency ready</p>
+                  <div class="availability">
+                    <span class="doctor-status">🟢 Dr. Sharma available</span>
+                    <span class="timestamp">Updated 2 min ago</span>
+                  </div>
+                </div>
+                <div class="alert-actions">
+                  <button class="alert-btn sms" data-hospital="City General Hospital">📱 SMS</button>
+                  <button class="alert-btn whatsapp" data-hospital="City General Hospital">💬 WhatsApp</button>
+                </div>
+              </div>
+              <div class="hospital-item">
+                <div class="hospital-info">
+                  <h4>Rescue Health Center</h4>
+                  <p>3.8 km away • ICU available</p>
+                  <div class="availability">
+                    <span class="doctor-status">🟡 Dr. Patel busy</span>
+                    <span class="timestamp">Updated 5 min ago</span>
+                  </div>
+                </div>
+                <div class="alert-actions">
+                  <button class="alert-btn sms" data-hospital="Rescue Health Center">📱 SMS</button>
+                  <button class="alert-btn whatsapp" data-hospital="Rescue Health Center">💬 WhatsApp</button>
+                </div>
+              </div>
+              <div class="hospital-item">
+                <div class="hospital-info">
+                  <h4>Sunrise Emergency Care</h4>
+                  <p>4.1 km away • Full capacity</p>
+                  <div class="availability">
+                    <span class="doctor-status">🔴 All doctors occupied</span>
+                    <span class="timestamp">Updated 1 min ago</span>
+                  </div>
+                </div>
+                <div class="alert-actions">
+                  <button class="alert-btn sms" data-hospital="Sunrise Emergency Care">📱 SMS</button>
+                  <button class="alert-btn whatsapp" data-hospital="Sunrise Emergency Care">💬 WhatsApp</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="app-description">
+            <h3>How patients use RescueGrid</h3>
+            <ul>
+              <li><strong>Location-based search:</strong> App automatically shows nearest hospitals first</li>
+              <li><strong>Voice search:</strong> Tap mic button for hands-free hospital search</li>
+              <li><strong>Live doctor status:</strong> Real-time availability with last update timestamps</li>
+              <li><strong>Multi-channel alerts:</strong> Send emergency details via SMS or WhatsApp</li>
+              <li><strong>Emergency categories:</strong> Pre-defined options for faster hospital preparation</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Emergency Notification Modal -->
+        <div id="emergencyModal" class="emergency-modal" style="display: none;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>🚨 Emergency Alert Sent!</h3>
+              <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="emergency-message">
+                <p class="emergency-text" id="emergencyText"></p>
+                <div class="hospital-prep">
+                  <h4>🏥 Hospital Preparation Checklist:</h4>
+                  <ul>
+                    <li>✅ Emergency team notified</li>
+                    <li>✅ ICU bed reserved</li>
+                    <li>✅ Required specialists alerted</li>
+                    <li>✅ Ambulance tracking activated</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" id="modalOk">OK, Got it</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Continuous Image Slider -->
+        <div class="continuous-slider">
+          <div class="slider-track">
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=400&q=80" alt="Medical team in emergency room">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=400&q=80" alt="Ambulance on emergency response">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?auto=format&fit=crop&w=400&q=80" alt="Hospital corridor with medical staff">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=400&q=80" alt="Emergency room equipment and monitors">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=400&q=80" alt="Medical professionals in ICU">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=400&q=80" alt="Medical team in emergency room">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=400&q=80" alt="Ambulance on emergency response">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?auto=format&fit=crop&w=400&q=80" alt="Hospital corridor with medical staff">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=400&q=80" alt="Emergency room equipment and monitors">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?auto=format&fit=crop&w=400&q=80" alt="Medical professionals in ICU">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=400&q=80" alt="Medical team in emergency room">
+            </div>
+            <div class="slide-item">
+              <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=400&q=80" alt="Ambulance on emergency response">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section-light">
+      <div class="container">
+        <div class="section-title">
+          <span>Featured Images</span>
+          <h2>Real emergency healthcare in action.</h2>
+        </div>
+        <div class="carousel-container">
+          <div class="carousel-wrapper">
+            <div class="carousel" id="carousel" role="region" aria-label="Emergency healthcare gallery" aria-live="polite">
+              <div class="carousel-slide" role="img" aria-labelledby="slide1-caption">
+                <img src="https://images.unsplash.com/photo-1581091870621-9d1bbe7d0ea2?auto=format&fit=crop&w=900&q=80" alt="Modern hospital emergency room with medical equipment and staff" class="carousel-image-img" loading="lazy">
+                <div class="carousel-caption" id="slide1-caption">Modern Hospital Emergency Room</div>
+              </div>
+              <div class="carousel-slide" role="img" aria-labelledby="slide2-caption">
+                <img src="https://images.unsplash.com/photo-1621905267918-48416bd8575a?w=900&h=450&fit=crop" alt="Advanced ambulance fleet responding to emergency call" class="carousel-image-img" loading="lazy">
+                <div class="carousel-caption" id="slide2-caption">Advanced Ambulance Fleet Response</div>
+              </div>
+              <div class="carousel-slide" role="img" aria-labelledby="slide3-caption">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&h=450&fit=crop" alt="Medical teams providing care to patients in hospital" class="carousel-image-img" loading="lazy">
+                <div class="carousel-caption" id="slide3-caption">Expert Medical Teams Caring For Patients</div>
+              </div>
+              <div class="carousel-slide" role="img" aria-labelledby="slide4-caption">
+                <img src="https://images.unsplash.com/photo-1631217314830-eed999e31349?w=900&h=450&fit=crop" alt="Real-time emergency coordination system dashboard" class="carousel-image-img" loading="lazy">
+                <div class="carousel-caption" id="slide4-caption">Real-time Emergency Coordination System</div>
+              </div>
+              <div class="carousel-slide" role="img" aria-labelledby="slide5-caption">
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5f15714ae?w=900&h=450&fit=crop" alt="Critical patient monitoring and healthcare technology" class="carousel-image-img" loading="lazy">
+                <div class="carousel-caption" id="slide5-caption">Critical Patient Monitoring & Care</div>
+              </div>
+            </div>
+            <button class="carousel-control prev" id="prevBtn" aria-label="Previous image">❮</button>
+            <button class="carousel-control next" id="nextBtn" aria-label="Next image">❯</button>
+          </div>
+          <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Image navigation"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vision" class="section-light">
+      <div class="container">
+        <div class="section-title">
+          <span>Investor ready</span>
+          <h2>Designed to scale as a trusted emergency healthcare network.</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Lives saved annually</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">25</div>
+            <div class="stat-label">Partner hospitals</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Response accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Emergency support</div>
+          </div>
+        </div>
+        <div class="pitch-grid">
+          <article class="pitch-card">
+            <h3>Market need</h3>
+            <p>Critical care depends on speed and information. RescueGrid gives every stakeholder visibility during high-risk transport.</p>
+          </article>
+          <article class="pitch-card">
+            <h3>Social impact</h3>
+            <p>Faster emergency prep saves lives and reduces patient risk across heart attack, stroke, labor, accident, and severe illness cases.</p>
+          </article>
+          <article class="pitch-card">
+            <h3>Growth potential</h3>
+            <p>Expand from city emergency networks to statewide health authority integration and hospital fleet coordination.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section-gradient-alt">
+      <div class="container contact-grid">
+        <div>
+          <span>Reach out</span>
+          <h2>Let’s build a safer emergency system together.</h2>
+          <p>Contact us to schedule a demo, discuss investment, or join our hospital and ambulance partner network.</p>
+          <ul class="contact-list">
+            <li>Email: info@rescuegrid.app</li>
+            <li>Phone: +91 98765 43210</li>
+            <li>Location: Bengaluru, India</li>
+          </ul>
+        </div>
+        <form id="contactForm" class="contact-form">
+          <label>Full Name<input type="text" name="name" placeholder="Your name" required></label>
+          <label>Email Address<input type="email" name="email" placeholder="Email" required></label>
+          <label>Message<textarea name="message" placeholder="Tell us about your interest" rows="5" required></textarea></label>
+          <button type="submit" class="btn btn-primary">Send Inquiry</button>
+          <p id="formMessage" class="form-message"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>RescueGrid • Emergency care coordination platform for hospitals, ambulances, and patients.</p>
+      <p>Built for investors, health systems, and grant programs.</p>
+      <div class="footer-links">
+        <a href="#features">Features</a> |
+        <a href="#contact">Contact</a> |
+        <a href="#vision">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+    ↑
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
