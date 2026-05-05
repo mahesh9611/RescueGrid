@@ -69,7 +69,7 @@ img {
   border-bottom: 1px solid rgba(148, 163, 184, 0.08);
 }
 
-..header-inner {
+.header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -267,6 +267,29 @@ img {
 
 .hero {
   padding: 4rem 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.35), rgba(2, 6, 23, 0.45)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  background-blend-mode: overlay;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.18), rgba(2, 6, 23, 0.55));
+  z-index: 1;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-grid {
@@ -274,6 +297,25 @@ img {
   grid-template-columns: 1.2fr 0.8fr;
   gap: 2rem;
   align-items: center;
+  transform: translateX(140px);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.hero-grid.visible,
+.hero-grid.animate-in {
+  animation: heroSlideIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heroSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(140px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .eyebrow,
@@ -307,7 +349,11 @@ img {
   margin-top: 2rem;
 }
 
-
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.8rem;
   border: none;
   border-radius: 999px;
   text-decoration: none;
@@ -493,8 +539,6 @@ img {
     background: var(--primary);
     border-radius: 999px;
     transition: width 0.5s ease;
-  gap: 2rem;
-  padding: 4rem 0;
 }
 
 .contact-form label {
@@ -947,6 +991,16 @@ img {
     margin-right: 0.75rem;
   }
 
+  .carousel-image {
+    height: 300px;
+  }
+
+  .carousel-control {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
   @keyframes scroll {
     0% {
       transform: translateX(0);
@@ -957,20 +1011,21 @@ img {
   }
 }
 
-  .carousel-image {
-    height: 300px;
-  }
-
-  .carousel-control {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+@media (max-width: 768px) {
+  .hero {
+    background-attachment: scroll;
+    min-height: 70vh;
   }
 }
 
 @media (max-width: 640px) {
   .site-header {
     position: relative;
+  }
+
+  .hero {
+    background-attachment: scroll;
+    min-height: 60vh;
   }
 
   .header-inner {
@@ -1357,4 +1412,201 @@ img {
   left: 0;
   color: var(--primary);
   font-weight: bold;
+}
+
+/* Enhanced Hero CTA Buttons */
+.btn-lg {
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
+  min-width: 200px;
+}
+
+/* Data Integrity Section */
+.integrity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.integrity-card {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.integrity-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.integrity-card h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+}
+
+.integrity-card p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Pulse Animation for Tracking */
+.pulse-animation {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Roadmap Section */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.roadmap-item {
+  background: rgba(15, 23, 42, 0.92);
+  border: 2px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+}
+
+.roadmap-marker {
+  display: inline-block;
+  background: var(--primary);
+  color: #020617;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.roadmap-item h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.roadmap-item p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Enhanced Footer */
+.footer-inner {
+  padding: 3rem 0 1rem !important;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  color: var(--primary);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-section p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.footer-section a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-section a:hover {
+  color: var(--secondary);
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-links a {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.social-links a:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: var(--primary);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  padding-top: 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Responsive Footer */
+@media (max-width: 640px) {
+  .btn-lg {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    min-width: 150px;
+    width: 100%;
+  }
+
+  .integrity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
 }

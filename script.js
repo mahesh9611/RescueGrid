@@ -373,7 +373,23 @@ if (scrollToTopBtn) {
   });
 }
 
-window.addEventListener('scroll', toggleScrollToTop);
+window.addEventListener('scroll', () => {
+  toggleScrollToTop();
+  handleHeroScroll();
+});
+
+function handleHeroScroll() {
+  const heroSection = document.getElementById('home');
+  const heroGrid = document.querySelector('.hero-grid');
+  if (!heroSection || !heroGrid) return;
+
+  const heroRect = heroSection.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+  const progress = Math.min(1, Math.max(0, 1 - heroRect.top / (viewportHeight * 0.8)));
+  const translateX = Math.max(0, 120 - progress * 120);
+  heroGrid.style.transform = `translateX(${translateX}px)`;
+  heroGrid.style.opacity = `${Math.min(1, progress * 1.3)}`;
+}
 
 // Intersection Observer for animations (if supported)
 if ('IntersectionObserver' in window) {
@@ -404,6 +420,15 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCarousel();
     startCarouselAutoPlay();
   }
+
+  const heroGrid = document.querySelector('.hero-grid');
+  if (heroGrid) {
+    setTimeout(() => {
+      heroGrid.classList.add('animate-in');
+    }, 60);
+  }
+
+  handleHeroScroll();
 
   // Initialize emergency modal functionality
   const emergencyModal = document.getElementById('emergencyModal');
