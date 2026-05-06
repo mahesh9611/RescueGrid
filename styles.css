@@ -1029,7 +1029,7 @@ img {
 
 .slider-track {
   display: flex;
-  width: calc(200px * 12); /* 12 images */
+  width: calc(200px * 24); /* 24 images for seamless loop */
   animation: scroll 25s linear infinite;
 }
 
@@ -1051,6 +1051,15 @@ img {
 
 .slide-item:hover img {
   transform: scale(1.05);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-200px * 12)); /* Move by the width of unique images for seamless loop */
+  }
 }
 
 @media (max-width: 900px) {
