@@ -1029,7 +1029,7 @@ img {
 
 .slider-track {
   display: flex;
-  width: calc(200px * 22); /* 22 images for seamless loop */
+  width: calc(200px * 12); /* 12 images for seamless loop */
   animation: scroll 25s linear infinite;
 }
 
@@ -1058,7 +1058,7 @@ img {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-200px * 11)); /* Move by the width of unique images for seamless loop */
+    transform: translateX(calc(-200px * 6)); /* Move by the width of unique images for seamless loop */
   }
 }
 
