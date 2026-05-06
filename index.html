@@ -54,27 +54,20 @@
           </div>
         </div>
         <div class="hero-card">
-          <div class="card-header">Emergency status</div>
-          <div class="resource-actions">
-            <button class="btn btn-secondary resource-btn active" data-resource="beds">Beds</button>
-            <button class="btn btn-secondary resource-btn" data-resource="icu">ICU</button>
-            <button class="btn btn-secondary resource-btn" data-resource="oxygen">Oxygen</button>
-            <button class="btn btn-secondary resource-btn" data-resource="blood">Blood</button>
-          </div>
-          <div id="resourceDetails" class="resource-details">
-            <div class="resource-summary">Beds available across nearby hospitals</div>
-            <div class="resource-list">
-              <div>City General Hospital — 12 beds</div>
-              <div>Rescue Health Center — 8 beds</div>
-              <div>Sunrise Emergency Care — 15 beds</div>
+          <div class="card-header">Platform Overview</div>
+          <p style="color: var(--text-muted); margin: 1rem 0;">RescueGrid connects hospitals, ambulances, and patients for faster emergency response. Access real-time resource data for every partner hospital and track ambulances live.</p>
+          <div style="display: grid; gap: 0.75rem; margin-top: 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--success); font-size: 1.2rem;">✓</span>
+              <span>Real-time hospital resources</span>
             </div>
-          </div>
-          <div class="tracking-panel">
-            <h3>Ambulance live tracking</h3>
-            <p>Realtime route updates show ambulance progress and patient ETA to the hospital.</p>
-            <div class="map-placeholder" id="trackingMap">
-              <div class="pulse-animation"></div>
-              📍 Real-time GPS Tracking Active
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--secondary); font-size: 1.2rem;">✓</span>
+              <span>Live ambulance tracking</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--primary); font-size: 1.2rem;">✓</span>
+              <span>Emergency coordination</span>
             </div>
           </div>
         </div>
@@ -144,8 +137,14 @@
           </ol>
         </div>
         <div class="tracking-demo">
-          <h3>Demo: ambulance route updates</h3>
+          <h3>Live Ambulance GPS Tracking</h3>
           <div id="mapCard" class="map-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+              <div class="map-placeholder" id="trackingMap" style="flex: 1; min-height: 200px;">
+                <div class="pulse-animation"></div>
+                📍 Real-time GPS Tracking Active
+              </div>
+            </div>
             <div class="map-status">Ambulance ETA: <span id="eta">8 min</span></div>
             <div id="trackingMessage" class="tracking-message">Ambulance 4.2 km from patient pickup point.</div>
             <div class="map-route">
@@ -158,6 +157,8 @@
             <button id="simulateBtn" class="btn btn-tertiary">Update live tracking</button>
           </div>
         </div>
+        <div style="display: grid;">
+          <h3>Demo: ambulance route updates</h3>
       </div>
     </section>
 
@@ -176,44 +177,73 @@
                 <th>ICU Slots</th>
                 <th>Oxygen Cylinders</th>
                 <th>Blood Units</th>
-                <th>Doctors On Call</th>
+                <th>Doctor Availability</th>
+                <th style="text-align: center;">Resources</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>City General Hospital</td>
+                <td style="cursor: pointer; color: var(--primary); font-weight: 600;" onclick="showHospitalResources('City General Hospital')">City General Hospital</td>
                 <td>12</td>
                 <td>4</td>
                 <td>18</td>
                 <td>O+ (10), A+ (8)</td>
-                <td>6</td>
+                <td><div style="font-weight: 700; color: var(--success);">6 Available</div><div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Updated 2 min ago</div></td>
+                <td style="text-align: center;"><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="showHospitalResources('City General Hospital')">View</button></td>
               </tr>
               <tr>
-                <td>Rescue Health Center</td>
+                <td style="cursor: pointer; color: var(--primary); font-weight: 600;" onclick="showHospitalResources('Rescue Health Center')">Rescue Health Center</td>
                 <td>8</td>
                 <td>2</td>
                 <td>12</td>
                 <td>B+ (7), AB+ (5)</td>
-                <td>4</td>
+                <td><div style="font-weight: 700; color: var(--text-muted);">4 Available</div><div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Updated 5 min ago</div></td>
+                <td style="text-align: center;"><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="showHospitalResources('Rescue Health Center')">View</button></td>
               </tr>
               <tr>
-                <td>Sunrise Emergency Care</td>
+                <td style="cursor: pointer; color: var(--primary); font-weight: 600;" onclick="showHospitalResources('Sunrise Emergency Care')">Sunrise Emergency Care</td>
                 <td>15</td>
                 <td>5</td>
                 <td>20</td>
                 <td>A- (6), O- (4)</td>
-                <td>8</td>
+                <td><div style="font-weight: 700; color: var(--success);">8 Available</div><div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Updated 1 min ago</div></td>
+                <td style="text-align: center;"><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="showHospitalResources('Sunrise Emergency Care')">View</button></td>
               </tr>
               <tr>
-                <td>Metro Medical Institute</td>
+                <td style="cursor: pointer; color: var(--primary); font-weight: 600;" onclick="showHospitalResources('Metro Medical Institute')">Metro Medical Institute</td>
                 <td>10</td>
                 <td>3</td>
                 <td>15</td>
                 <td>O+ (9), B- (3)</td>
-                <td>5</td>
+                <td><div style="font-weight: 700; color: var(--text-muted);">5 Available</div><div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">Updated 3 min ago</div></td>
+                <td style="text-align: center;"><button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="showHospitalResources('Metro Medical Institute')">View</button></td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Hospital Resources Modal -->
+        <div id="hospitalResourcesModal" class="emergency-modal" style="display: none;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 id="hospitalModalTitle">Hospital Resources</h3>
+              <button class="modal-close" onclick="closeHospitalResources()">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="resource-actions" style="gap: 0.5rem;">
+                <button class="btn btn-secondary resource-btn active" data-resource="beds" onclick="showResourceType('beds')">Beds</button>
+                <button class="btn btn-secondary resource-btn" data-resource="icu" onclick="showResourceType('icu')">ICU</button>
+                <button class="btn btn-secondary resource-btn" data-resource="oxygen" onclick="showResourceType('oxygen')">Oxygen</button>
+                <button class="btn btn-secondary resource-btn" data-resource="blood" onclick="showResourceType('blood')">Blood</button>
+              </div>
+              <div id="hospitalResourceDetails" class="resource-details" style="margin-top: 1.5rem;">
+                <!-- Populated by JavaScript -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" onclick="closeHospitalResources()">Close</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -388,23 +418,23 @@
           <div class="carousel-wrapper">
             <div class="carousel" id="carousel" role="region" aria-label="Emergency healthcare gallery" aria-live="polite">
               <div class="carousel-slide" role="img" aria-labelledby="slide1-caption">
-                <img src="https://images.unsplash.com/photo-1581091870621-9d1bbe7d0ea2?auto=format&fit=crop&w=900&q=80" alt="Modern hospital emergency room with medical equipment and staff" class="carousel-image-img" loading="lazy">
+                <img src="gallery-1.png" alt="Modern Hospital Emergency Room" class="carousel-image-img" loading="lazy">
                 <div class="carousel-caption" id="slide1-caption">Modern Hospital Emergency Room</div>
               </div>
               <div class="carousel-slide" role="img" aria-labelledby="slide2-caption">
-                <img src="https://images.unsplash.com/photo-1621905267918-48416bd8575a?w=900&h=450&fit=crop" alt="Advanced ambulance fleet responding to emergency call" class="carousel-image-img" loading="lazy">
+                <img src="gallery-2.png" alt="Advanced Ambulance Fleet Response" class="carousel-image-img" loading="lazy">
                 <div class="carousel-caption" id="slide2-caption">Advanced Ambulance Fleet Response</div>
               </div>
               <div class="carousel-slide" role="img" aria-labelledby="slide3-caption">
-                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&h=450&fit=crop" alt="Medical teams providing care to patients in hospital" class="carousel-image-img" loading="lazy">
+                <img src="gallery-3.png" alt="Expert Medical Teams Caring For Patients" class="carousel-image-img" loading="lazy">
                 <div class="carousel-caption" id="slide3-caption">Expert Medical Teams Caring For Patients</div>
               </div>
               <div class="carousel-slide" role="img" aria-labelledby="slide4-caption">
-                <img src="https://images.unsplash.com/photo-1631217314830-eed999e31349?w=900&h=450&fit=crop" alt="Real-time emergency coordination system dashboard" class="carousel-image-img" loading="lazy">
+                <img src="gallery-4.png" alt="Real-time Emergency Coordination System" class="carousel-image-img" loading="lazy">
                 <div class="carousel-caption" id="slide4-caption">Real-time Emergency Coordination System</div>
               </div>
               <div class="carousel-slide" role="img" aria-labelledby="slide5-caption">
-                <img src="https://images.unsplash.com/photo-1584308666744-24d5f15714ae?w=900&h=450&fit=crop" alt="Critical patient monitoring and healthcare technology" class="carousel-image-img" loading="lazy">
+                <img src="gallery-5.png" alt="Critical Patient Monitoring & Care" class="carousel-image-img" loading="lazy">
                 <div class="carousel-caption" id="slide5-caption">Critical Patient Monitoring & Care</div>
               </div>
             </div>
@@ -454,6 +484,35 @@
             <p>Expand from city emergency networks to statewide health authority integration and hospital fleet coordination.</p>
           </article>
         </div>
+        
+        <div style="margin-top: 4rem;" id="roadmap">
+          <div class="section-title" style="margin-bottom: 3rem;">
+            <span>Strategic Vision</span>
+            <h3 style="font-size: clamp(1.8rem, 2.5vw, 2.5rem);">Roadmap to Impact</h3>
+          </div>
+          <div class="roadmap-grid">
+            <div class="roadmap-item">
+              <div class="roadmap-marker">Q3 2026</div>
+              <h4>Bangalore Pilot Launch</h4>
+              <p>Deploy full platform across 15 hospitals in Bangalore Metro with live ambulance tracking.</p>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-marker">Q4 2026</div>
+              <h4>Pan-India Expansion</h4>
+              <p>Scale to 50+ hospitals across 5 metro cities with dedicated integration support teams.</p>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-marker">Q1 2027</div>
+              <h4>AI-Powered Analytics</h4>
+              <p>Predictive resource allocation and emergency pattern recognition for proactive response.</p>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-marker">Q2 2027</div>
+              <h4>International Markets</h4>
+              <p>Launch in Southeast Asia with localized compliance and healthcare integration.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -464,8 +523,8 @@
           <h2>Let’s build a safer emergency system together.</h2>
           <p>Contact us to schedule a demo, discuss investment, or join our hospital and ambulance partner network.</p>
           <ul class="contact-list">
-            <li>Email: <a href="mailto:invest@rescuegrid.com">invest@rescuegrid.com</a></li>
-            <li>Phone: +91 98765 43210</li>
+            <li>Email: <a href="mailto:official.rescuegrid@gmail.com">official.rescuegrid@gmail.com</a></li>
+            <li>Phone: +91 63626 42127</li>
             <li>Location: Bengaluru, India</li>
           </ul>
         </div>
@@ -479,36 +538,7 @@
       </div>
     </section>
 
-    <section id="roadmap" class="section-gradient">
-      <div class="container">
-        <div class="section-title">
-          <span>Strategic Vision</span>
-          <h2>Roadmap to Impact</h2>
-        </div>
-        <div class="roadmap-grid">
-          <div class="roadmap-item">
-            <div class="roadmap-marker">Q3 2026</div>
-            <h4>Bangalore Pilot Launch</h4>
-            <p>Deploy full platform across 15 hospitals in Bangalore Metro with live ambulance tracking.</p>
-          </div>
-          <div class="roadmap-item">
-            <div class="roadmap-marker">Q4 2026</div>
-            <h4>Pan-India Expansion</h4>
-            <p>Scale to 50+ hospitals across 5 metro cities with dedicated integration support teams.</p>
-          </div>
-          <div class="roadmap-item">
-            <div class="roadmap-marker">Q1 2027</div>
-            <h4>AI-Powered Analytics</h4>
-            <p>Predictive resource allocation and emergency pattern recognition for proactive response.</p>
-          </div>
-          <div class="roadmap-item">
-            <div class="roadmap-marker">Q2 2027</div>
-            <h4>International Markets</h4>
-            <p>Launch in Southeast Asia with localized compliance and healthcare integration.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+
   </main>
 
   <footer class="site-footer">
@@ -521,10 +551,10 @@
         </div>
         <div class="footer-section">
           <h4>Connect with Us</h4>
-          <p><strong>Email:</strong> <a href="mailto:invest@rescuegrid.com">invest@rescuegrid.com</a></p>
+          <p><strong>Email:</strong> <a href="mailto:official.rescuegrid@gmail.com">official.rescuegrid@gmail.com</a></p>
           <div class="social-links">
-            <a href="https://linkedin.com/company/rescuegrid" target="_blank" aria-label="LinkedIn" title="LinkedIn">LinkedIn</a>
-            <a href="https://instagram.com/rescuegrid" target="_blank" aria-label="Instagram" title="Instagram">Instagram</a>
+            <a href="https://www.linkedin.com/company/rescuegrid-india/?viewAsMember=true" target="_blank" aria-label="LinkedIn" title="LinkedIn">LinkedIn</a>
+            <a href="https://www.instagram.com/rescuegrid.india" target="_blank" aria-label="Instagram" title="Instagram">Instagram</a>
           </div>
         </div>
         <div class="footer-section">
