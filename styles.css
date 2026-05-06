@@ -1029,7 +1029,8 @@ img {
 
 .slider-track {
   display: flex;
-  width: auto;
+  width: calc(200px * 12); /* 12 images */
+  animation: scroll 25s linear infinite;
 }
 
 .slide-item {
