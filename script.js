@@ -43,8 +43,41 @@ const resourceData = {
   blood: [
     'City General Hospital — Type O+ (10 units), A+ (8 units)',
     'Rescue Health Center — Type B+ (7 units), AB+ (5 units)',
-    'Sunrise Emergency Care — Type A- (6 units), O- (4 units)'
+    'Sunrise Emergency Care — Type A- (6 units), O- (4 units)',
+    'Metro Medical Institute — Type O+ (9 units), B- (3 units)'
   ]
+};
+
+// Hospital-specific resource data for modal
+const hospitalResourceData = {
+  'City General Hospital': {
+    beds: '12 beds available',
+    icu: '4 ICU beds available',
+    oxygen: '18 oxygen cylinders ready',
+    blood: 'Type O+ (10 units), A+ (8 units)',
+    doctors: '6 doctors available'
+  },
+  'Rescue Health Center': {
+    beds: '8 beds available',
+    icu: '2 ICU beds available',
+    oxygen: '12 oxygen cylinders ready',
+    blood: 'Type B+ (7 units), AB+ (5 units)',
+    doctors: '4 doctors available'
+  },
+  'Sunrise Emergency Care': {
+    beds: '15 beds available',
+    icu: '5 ICU beds available',
+    oxygen: '20 oxygen cylinders ready',
+    blood: 'Type A- (6 units), O- (4 units)',
+    doctors: '8 doctors available'
+  },
+  'Metro Medical Institute': {
+    beds: '10 beds available',
+    icu: '3 ICU beds available',
+    oxygen: '15 oxygen cylinders ready',
+    blood: 'Type O+ (9 units), B- (3 units)',
+    doctors: '5 doctors available'
+  }
 };
 
 const trackingStates = [
@@ -411,6 +444,194 @@ if ('IntersectionObserver' in window) {
     observer.observe(section);
   });
 }
+
+// Professional Reveal Animation - Intersection Observer for .reveal-advance elements
+const revealObserverOptions = {
+  threshold: 0.15 // Triggers when 15% of the element is visible
+};
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    }
+  });
+}, revealObserverOptions);
+
+// Apply to all elements with the class
+document.querySelectorAll('.reveal-advance').forEach((el) => revealObserver.observe(el));
+
+// Scroll Progress Bar
+const scrollProgressBar = document.createElement('div');
+scrollProgressBar.className = 'scroll-progress-bar';
+document.body.prepend(scrollProgressBar);
+
+window.addEventListener('scroll', () => {
+  const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = (window.scrollY / windowHeight) * 100;
+  scrollProgressBar.style.width = scrolled + '%';
+});
+
+// Staggered Animation for Lists and Grids
+function initStaggeredAnimations() {
+  const staggerContainers = document.querySelectorAll('.process-list, .feature-grid, .pitch-grid, .stats-grid');
+  
+  staggerContainers.forEach(container => {
+    const items = container.querySelectorAll('li, .stat-card, .feature-card, .pitch-card');
+    items.forEach((item, index) => {
+      item.classList.add('stagger-item');
+      item.style.animationDelay = `${index * 0.1}s`;
+    });
+  });
+
+  // Trigger animation when items come into view
+  const staggerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stagger-item').forEach(item => {
+    staggerObserver.observe(item);
+  });
+}
+
+// Parallax Effect on Hero Section
+function initParallaxEffect() {
+  const heroSection = document.querySelector('.hero');
+  if (!heroSection) return;
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const heroOffset = heroSection.offsetTop;
+    const isInView = scrolled < heroOffset + 800;
+    
+    if (isInView) {
+      const parallaxOffset = scrolled * 0.5;
+      heroSection.style.backgroundPosition = `center ${parallaxOffset}px`;
+    }
+  });
+}
+
+// Enhanced Form Interactions
+function initFormEnhancements() {
+  const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+  
+  formInputs.forEach(input => {
+    input.addEventListener('focus', function() {
+      this.parentElement.style.transition = 'all 0.3s ease';
+    });
+    
+    input.addEventListener('blur', function() {
+      if (!this.value) {
+        this.style.transform = 'scale(1)';
+      }
+    });
+  });
+}
+
+// Initialize all professional enhancements
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initStaggeredAnimations, 100);
+    initParallaxEffect();
+    initFormEnhancements();
+  });
+} else {
+  setTimeout(initStaggeredAnimations, 100);
+  initParallaxEffect();
+  initFormEnhancements();
+}
+
+// Hospital Resources Modal Functions
+let currentHospital = '';
+let currentResourceType = 'beds';
+
+function showHospitalResources(hospitalName) {
+  currentHospital = hospitalName;
+  currentResourceType = 'beds';
+  const modal = document.getElementById('hospitalResourcesModal');
+  const title = document.getElementById('hospitalModalTitle');
+  
+  title.textContent = `${hospitalName} - Resources`;
+  modal.style.display = 'flex';
+  modal.classList.add('animate-in');
+  
+  updateResourceDisplay();
+  
+  // Reset button states
+  document.querySelectorAll('.modal-body .resource-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.querySelector(`.modal-body .resource-btn[data-resource="beds"]`).classList.add('active');
+}
+
+function closeHospitalResources() {
+  const modal = document.getElementById('hospitalResourcesModal');
+  modal.style.display = 'none';
+  modal.classList.remove('animate-in');
+  currentHospital = '';
+}
+
+function showResourceType(resourceType) {
+  currentResourceType = resourceType;
+  
+  // Update button states
+  document.querySelectorAll('.modal-body .resource-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.querySelector(`.modal-body .resource-btn[data-resource="${resourceType}"]`).classList.add('active');
+  
+  updateResourceDisplay();
+}
+
+function updateResourceDisplay() {
+  if (!currentHospital) return;
+  
+  const hospitalData = hospitalResourceData[currentHospital];
+  const resourceDetails = document.getElementById('hospitalResourceDetails');
+  const resourceLabels = {
+    beds: '📋 Beds',
+    icu: '🏥 ICU',
+    oxygen: '🌬️ Oxygen',
+    blood: '🩸 Blood'
+  };
+  
+  const resourceValue = hospitalData[currentResourceType];
+  resourceDetails.innerHTML = `
+    <div class="resource-summary">${resourceLabels[currentResourceType]} Availability</div>
+    <div class="resource-list">
+      <div style="padding: 1rem; background: rgba(56, 189, 248, 0.1); border-radius: 12px; margin-top: 0.5rem;">
+        <strong>${resourceValue}</strong>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(148, 163, 184, 0.1);">
+      <div style="font-size: 0.9rem; color: var(--text-muted);">
+        <strong>Doctors:</strong> ${hospitalData.doctors}
+      </div>
+    </div>
+  `;
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('hospitalResourcesModal');
+  if (e.target === modal) {
+    closeHospitalResources();
+  }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('hospitalResourcesModal');
+    if (modal && modal.style.display === 'flex') {
+      closeHospitalResources();
+    }
+  }
+});
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
